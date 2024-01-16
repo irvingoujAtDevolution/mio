@@ -33,6 +33,12 @@ mod udp;
 #[cfg(not(target_os = "wasi"))]
 pub use self::udp::UdpSocket;
 
+#[cfg(not(target_os = "wasi"))]
+mod raw;
+
+#[cfg(not(target_os = "wasi"))]
+pub use self::raw::RawSocket;
+
 #[cfg(unix)]
 mod uds;
 #[cfg(unix)]

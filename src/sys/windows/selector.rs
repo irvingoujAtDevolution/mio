@@ -456,7 +456,7 @@ impl SelectorInner {
         unsafe { self.update_sockets_events() }?;
 
         let result = self.cp.get_many(statuses, timeout);
-
+        
         self.is_polling.store(false, Ordering::Relaxed);
 
         match result {

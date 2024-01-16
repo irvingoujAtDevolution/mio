@@ -46,6 +46,9 @@ net = []
 
 [dependencies]
 log = { version = "0.4.8", optional = true }
+socket2 = { version = "0.5.5", features = ["all"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 
 [target.'cfg(unix)'.dependencies]
 libc = "0.2.149"
@@ -102,4 +105,8 @@ required-features = ["os-poll", "net"]
 
 [[example]]
 name = "udp_server"
+required-features = ["os-poll", "net"]
+
+[[example]]
+name = "raw_ping"
 required-features = ["os-poll", "net"]

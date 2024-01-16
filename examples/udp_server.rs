@@ -33,8 +33,6 @@ fn main() -> io::Result<()> {
     println!(" $ nc -u 127.0.0.1 9000");
     println!("Anything you type will be echoed back to you.");
 
-    // Initialize a buffer for the UDP packet. We use the maximum size of a UDP
-    // packet, which is the maximum value of 16 a bit integer.
     let mut buf = [0; 1 << 16];
 
     // Our event loop.
@@ -57,13 +55,11 @@ fn main() -> io::Result<()> {
                     // In this loop we receive all packets queued for the socket.
                     match socket.recv_from(&mut buf) {
                         Ok((packet_size, source_address)) => {
-                            // Echo the data.
+                            println!("Received packet from: {}", source_address);
                             socket.send_to(&buf[..packet_size], source_address)?;
                         }
                         Err(e) if e.kind() == io::ErrorKind::WouldBlock => {
-                            // If we get a `WouldBlock` error we know our socket
-                            // has no more packets queued, so we can return to
-                            // polling and wait for some more.
+                            println!("would block");
                             break;
                         }
                         Err(e) => {
